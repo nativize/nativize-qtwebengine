@@ -12,11 +12,12 @@ export const prepare = async () => {
 export const build = async () => {
 	// cmake -B build -S .
 	await new Deno.Command("cmake", {
+		//we may need to pass -DCMAKE_PREFIX_PATH=...
+		//and this may allow crosscompile
 		args: ["-B", "build", "-S", "."],
 		cwd: import.meta.dirname,
 	}).spawn().status;
 
-	// cmake --build build
 	await new Deno.Command("cmake", {
 		args: ["--build", "build"],
 		cwd: import.meta.dirname,
@@ -31,6 +32,5 @@ export const run = async () => {
 };
 
 export const clean = async () => {
-	// clean up perhaps just delete build directory
 	await Deno.remove("build", { recursive: true });
 };
