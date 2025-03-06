@@ -4,17 +4,21 @@ export const check = async () => {
 	//   we may need to get qt path...
 	//   if environment vars set
 	// check if qt webengine is installed
+	// check if windeployqt is found
 };
 
 export const prepare = async () => {
 };
 
-export const build = async () => {
+/**
+ * @param {*} url
+ */
+export const build = async ({ url }) => {
 	// cmake -B build -S .
 	await new Deno.Command("cmake", {
 		//we may need to pass -DCMAKE_PREFIX_PATH=...
 		//and this may allow crosscompile
-		args: ["-B", "build", "-S", "."],
+		args: ["-B", "build", "-S", ".", "-DNATIVIZE_URL=" + url],
 		cwd: import.meta.dirname,
 	}).spawn().status;
 

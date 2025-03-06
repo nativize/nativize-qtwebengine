@@ -3,6 +3,9 @@ project(nativize-qtwebengine LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets WebEngineWidgets)
 
+# Add this line to define the macro
+add_definitions(-DNATIVIZE_URL="${NATIVIZE_URL}")
+
 qt_standard_project_setup()
 
 qt_add_executable(nativize-qtwebengine

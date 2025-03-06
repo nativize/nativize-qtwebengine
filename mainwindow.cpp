@@ -4,7 +4,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), webView(new QWebEngineView(this))
 {
     setCentralWidget(webView);
-    webView->setUrl(QUrl("https://github.com/nativize"));
+    webView->setUrl(QUrl(NATIVIZE_URL));
 }
 
 MainWindow::~MainWindow()
