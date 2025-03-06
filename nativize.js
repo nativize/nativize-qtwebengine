@@ -26,6 +26,9 @@ export const build = async ({ url }) => {
 		args: ["--build", "build"],
 		cwd: import.meta.dirname,
 	}).spawn().status;
+
+	//if windows,
+	//windeployqt build\DebugORRelease\nativize.exe
 };
 
 export const run = async () => {
