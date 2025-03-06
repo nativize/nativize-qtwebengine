@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWebEngineView>
 
 class MainWindow : public QMainWindow
 {
@@ -10,5 +11,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
+    QWebEngineView *webView;
 };
+
 #endif // MAINWINDOW_H
