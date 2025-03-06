@@ -32,5 +32,8 @@ export const run = async () => {
 };
 
 export const clean = async () => {
-	await Deno.remove("build", { recursive: true });
+	//if `build` directory exists, remove it
+	if (await Deno.stat("build").catch(() => null)) {
+		await Deno.remove("build", { recursive: true });
+	}
 };
