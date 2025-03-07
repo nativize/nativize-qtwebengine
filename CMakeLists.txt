@@ -36,3 +36,9 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+add_custom_target(run
+    COMMAND $<TARGET_FILE:nativize-qtwebengine>
+    DEPENDS nativize-qtwebengine
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)

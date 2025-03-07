@@ -36,6 +36,10 @@ export const run = async () => {
 	// cmake does not have feature to run target
 	// we may either implement on CMakeLists.txt or
 	// here.
+	await new Deno.Command("cmake", {
+		args: ["--build", "build", "--target", "run"],
+		cwd: import.meta.dirname,
+	}).spawn().status;
 };
 
 export const clean = async () => {
