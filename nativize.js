@@ -14,18 +14,31 @@ export const prepare = async () => {
  * @param {*} url
  */
 export const build = async ({ url }) => {
-	// cmake -B build -S .
 	await new Deno.Command("cmake", {
 		//we may need to pass -DCMAKE_PREFIX_PATH=...
 		//and this may allow crosscompile
 		args: ["-B", "build", "-S", ".", "-DNATIVIZE_URL=" + url],
 		cwd: import.meta.dirname,
-	}).spawn().status;
+	})
+		.spawn()
+		.status
+		.then(({ success }) => {
+			if (!success) {
+				throw Error(`cmake -B build -S . -DNATIVIZE_URL=${url}`);
+			}
+		});
 
 	await new Deno.Command("cmake", {
 		args: ["--build", "build"],
 		cwd: import.meta.dirname,
-	}).spawn().status;
+	})
+		.spawn()
+		.status
+		.then(({ success }) => {
+			if (!success) {
+				throw Error(`cmake --build build`);
+			}
+		});
 
 	//if windows,
 	//windeployqt build\DebugORRelease\nativize.exe
@@ -39,7 +52,13 @@ export const run = async () => {
 	await new Deno.Command("cmake", {
 		args: ["--build", "build", "--target", "run"],
 		cwd: import.meta.dirname,
-	}).spawn().status;
+	}).spawn()
+		.status
+		.then(({ success }) => {
+			if (!success) {
+				throw Error(`cmake --build build --target run`);
+			}
+		});
 };
 
 export const clean = async () => {
